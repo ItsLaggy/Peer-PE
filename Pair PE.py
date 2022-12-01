@@ -4,20 +4,28 @@ import keyboard
 pnt = trtl.Turtle()
 
 #----Constants----
-
+FORWARD_KEY, LEFT_KEY, BACKWARD_KEY, RIGHT_KEY, USER_MOVEMENT, USER_TURN = 'w', 'a', 's', 'd', 15, 15   
 
 #----Functions----
-def callback(event):
-    userKey = str(event.name)
-    if userKey == 'w':
-        pnt.forward(5)
+def Forward_KeyDown(event):
+    pnt.penup()
+    pnt.forward(USER_MOVEMENT)
+def Backward_KeyDown(event):
+    pnt.penup()
+    pnt.back(USER_MOVEMENT)
+def Left_KeyDown(event):
+    pnt.penup()
+    pnt.left(USER_TURN)
+def Right_KeyDown(event):
+    pnt.penup()
+    pnt.right(USER_TURN)
+    
 
-
-
-#----Execution----
-keyboard.on_release(callback)
-keyboard.wait('esc')
-
+#----Keydown Movement----
+keyboard.on_press_key(FORWARD_KEY, Forward_KeyDown)
+keyboard.on_press_key(BACKWARD_KEY, Backward_KeyDown)
+keyboard.on_press_key(LEFT_KEY, Left_KeyDown)
+keyboard.on_press_key(RIGHT_KEY, Right_KeyDown)
 
 wn = trtl.Screen()
 wn.mainloop()
