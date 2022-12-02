@@ -2,6 +2,7 @@ import turtle as trtl
 import keyboard
 import random
 import time
+#:)
 
 trtl.speed(0)
 wn = trtl.Screen()
