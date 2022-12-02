@@ -189,17 +189,19 @@ def make_star():
     pnt.end_fill()
     
 
-#---- prints the code ----
-make_tree_trunk()
-postion()
-tree_leaves()
-make_star()
+
 
     
 
 #----Background----
 wn.bgpic('./Snow.gif')
 wn.addshape('./Snowflake.gif')
+
+#---- prints the code ----
+make_tree_trunk()
+postion()
+tree_leaves()
+make_star()
 
 #----Keydown Movement----
 keyboard.on_press_key(FORWARD_KEY, Forward_KeyDown)
