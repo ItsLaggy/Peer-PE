@@ -100,14 +100,15 @@ fourth_triangle_y = -20
 tree_color = "green"
 trunk_color = "brown"
 #---- creates the tree trunk and trasports the turtle to the bottom center of the canvas ----
-pnt.penup()
-pnt.goto(center_x,cenetr_y)
-pnt.pendown()
-pnt.left(45)
-pnt.fillcolor(trunk_color)
-pnt.begin_fill()
-pnt.circle(20,360,4)
-pnt.end_fill()
+def make_tree_trunk():
+    pnt.penup()
+    pnt.goto(center_x,cenetr_y)
+    pnt.pendown()
+    pnt.left(45)
+    pnt.fillcolor(trunk_color)
+    pnt.begin_fill()
+    pnt.circle(20,360,4)
+    pnt.end_fill()
 #---- triangle function ----
 def make_triangle():
     pnt.begin_fill()
@@ -188,6 +189,7 @@ def make_star():
     
 
 #---- prints the code ----
+make_tree_trunk()
 tree_leaves()
 make_star()
 
