@@ -30,12 +30,8 @@ THIRD_TRIANGLE_Y = - 100
 FOURTH_TRIANGLE_Y = -20
 #
 # #---- leaves of the tree size ----
-FIRST_LEAVES = 200
-SECOND_LEAVES = 180
-THIRD_LEAVES = 160
-FOUTH_LEAVES = 140
-TREE_COLOR = "green"
-TRUNK_COLOR = "brown"
+FIRST_LEAVES, SECOND_LEAVES, THIRD_LEAVES, FOUTH_LEAVES  = 200, 180,160,140
+TREE_COLOR, TRUNK_COLOR = "green","brown"
 #----Variables----
 snowflakes = []
 current_x = []
