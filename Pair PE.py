@@ -3,7 +3,6 @@ import keyboard
 
 pnt = trtl.Turtle()
 
-
 #----Constants----
 FORWARD_KEY, LEFT_KEY, BACKWARD_KEY, RIGHT_KEY = 'w', 'a', 's', 'd'  
 USER_MOVEMENT, USER_TURN = 15, 15 
