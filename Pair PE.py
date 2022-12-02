@@ -121,9 +121,10 @@ def make_triangle():
     pnt.forward(200)
     pnt.end_fill()
 #---- lines up tree leaves
-pnt.penup()
-pnt.goto(first_triangle_x,first_triangle_y)
-pnt.pendown()
+def postion():
+    pnt.penup()
+    pnt.goto(first_triangle_x,first_triangle_y)
+    pnt.pendown()
 #---- make tree leaves ----
 def tree_leaves():
     pnt.begin_fill()
@@ -190,6 +191,7 @@ def make_star():
 
 #---- prints the code ----
 make_tree_trunk()
+postion()
 tree_leaves()
 make_star()
 
