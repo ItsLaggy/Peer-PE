@@ -101,6 +101,7 @@ tree_color = "green"
 trunk_color = "brown"
 #---- creates the tree trunk and trasports the turtle to the bottom center of the canvas ----
 def make_tree_trunk():
+    pnt.speed(0)
     pnt.penup()
     pnt.goto(center_x,cenetr_y)
     pnt.pendown()
@@ -111,6 +112,7 @@ def make_tree_trunk():
     pnt.end_fill()
 #---- triangle function ----
 def make_triangle():
+    pnt.speed(0)
     pnt.begin_fill()
     pnt.fillcolor(tree_color)
     pnt.right(45)
@@ -122,11 +124,13 @@ def make_triangle():
     pnt.end_fill()
 #---- lines up tree leaves
 def postion():
+    pnt.speed(0)
     pnt.penup()
     pnt.goto(first_triangle_x,first_triangle_y)
     pnt.pendown()
 #---- make tree leaves ----
 def tree_leaves():
+    pnt.speed(0)
     pnt.begin_fill()
     pnt.fillcolor(tree_color)
     pnt.right(45)
@@ -175,6 +179,7 @@ def tree_leaves():
     pnt.end_fill()
 #---- makes star for the tree ----
 def make_star():
+    pnt.speed(0)
     pnt.penup()
     pnt.goto(center_x+4 ,95)
     pnt.pendown()
@@ -187,6 +192,7 @@ def make_star():
         pnt.forward(45)
     pnt.penup()
     pnt.end_fill()
+    pnt.hideturtle()
     
 
 
