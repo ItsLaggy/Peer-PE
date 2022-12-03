@@ -167,9 +167,9 @@ def Tree_Creation():
 #----Background----
 wn.bgpic('./Snow.gif')
 wn.addshape('./Snowflake.gif')
-#wn.addshape('./Stand.gif')
-#wn.addshape('./Run1.gif')
-#wn.addshape('./Run2.gif')
+""" wn.addshape('./Stand.gif')
+wn.addshape('./Run1.gif')
+wn.addshape('./Run2.gif') """
 #---- prints the code ----
 Tree_Creation()
 
@@ -185,9 +185,9 @@ Complete_Update()
 pnt = trtl.Turtle()
 #pnt.shape('./Stand.gif')
 pnt.up()
-pnt.goto(CENTER_X,CENTER_Y)
-
-
+pnt.goto(0,0)
+pnt.shapesize(3)
+pnt.color('red')
 pnt.showturtle()
 keyboard.on_press_key(FORWARD_KEY, Forward_KeyDown)
 keyboard.on_press_key(BACKWARD_KEY, Backward_KeyDown)
