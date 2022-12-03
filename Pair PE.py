@@ -18,20 +18,14 @@ FLAKE_AMOUNT, FLAKE_COLOR, REFRESH_TIMER = 300, 'white', 10
 X_MIN, X_MAX, Y_MIN, Y_MAX = -400, 400, -350, 400
 YMIN_END, YMAX_END = -350, -400
 #           ___Tree Constants__
-CENTER_X= 0
-CENTER_Y= -300
-FIRST_TRIANGLE_X = -110
-SECOND_TRIANGLE_X = -100
-THIRD_TRIANGLE_X = -90
-FOURTH_TRIANGLE_X = -80
-FIRST_TRIANGLE_Y = -272
-SECOND_TRIANGLE_Y = -190
-THIRD_TRIANGLE_Y = - 100
-FOURTH_TRIANGLE_Y = -20
-
-# #---- leaves of the tree size ----
+CENTER_X, CENTER_Y = 0, -300
+FIRST_TRIANGLE_X, FIRST_TRIANGLE_Y = -110, -272
+SECOND_TRIANGLE_X, SECOND_TRIANGLE_Y = -100, -190
+THIRD_TRIANGLE_X, THIRD_TRIANGLE_Y = -90, -100
+FOURTH_TRIANGLE_X, FOURTH_TRIANGLE_Y = -80, -20
 FIRST_LEAVES, SECOND_LEAVES, THIRD_LEAVES, FOUTH_LEAVES  = 200, 180,160,140
 TREE_COLOR, TRUNK_COLOR = "green","brown"
+
 #----Variables----
 snowflakes = []
 current_x = []
@@ -78,8 +72,8 @@ def Update_Position():
     for i in range(FLAKE_AMOUNT):
         snowflakes[i].speed(0)
         fall_speed = random.randint(5,10)
-        #wind_speed = random.randint(-10,10)
-        #current_x[i] += wind_speed
+        wind_speed = random.randint(0,5)
+        current_x[i] += wind_speed
         current_y[i] -= fall_speed
         
 def Draw_Snow():
