@@ -2,12 +2,11 @@ import turtle as trtl
 import keyboard
 import random
 import time
-#:)
 
 trtl.speed(0)
 wn = trtl.Screen()
 pnt = trtl.Turtle()
-#wn.tracer(0)
+wn.tracer(0,0)
 
 
 #----Constants----
@@ -15,8 +14,8 @@ pnt = trtl.Turtle()
 FORWARD_KEY, LEFT_KEY, BACKWARD_KEY, RIGHT_KEY = 'w', 'a', 's', 'd'  
 USER_MOVEMENT, USER_TURN = 15, 15 
 #           ___Snow Constants___
-FLAKE_AMOUNT, FLAKE_COLOR, REFRESH_TIMER = 30, 'white', 30
-X_MIN, X_MAX, Y_MIN, Y_MAX = -400, 400, 300, 400
+FLAKE_AMOUNT, FLAKE_COLOR, REFRESH_TIMER = 300, 'white', 10
+X_MIN, X_MAX, Y_MIN, Y_MAX = -400, 400, -350, 400
 YMIN_END, YMAX_END = -350, -400
 #           ___Tree Constants__
 CENTER_X= 0
@@ -29,7 +28,7 @@ FIRST_TRIANGLE_Y = -272
 SECOND_TRIANGLE_Y = -190
 THIRD_TRIANGLE_Y = - 100
 FOURTH_TRIANGLE_Y = -20
-#
+
 # #---- leaves of the tree size ----
 FIRST_LEAVES, SECOND_LEAVES, THIRD_LEAVES, FOUTH_LEAVES  = 200, 180,160,140
 TREE_COLOR, TRUNK_COLOR = "green","brown"
@@ -37,7 +36,8 @@ TREE_COLOR, TRUNK_COLOR = "green","brown"
 snowflakes = []
 current_x = []
 current_y = []
-end_y = []
+start_x = []
+start_y = []
 
 
 #----Functions----
@@ -58,9 +58,12 @@ def Right_KeyDown(event):
 #           ___Snow Events___
 def Make_Snow():
     for i in range(FLAKE_AMOUNT):
+        
         snowflakes.append(trtl.Turtle())
         current_x.append(random.randint(X_MIN, X_MAX))
         current_y.append(random.randint(Y_MIN, Y_MAX))
+        start_x.append(current_x[i])
+        start_y.append(current_y[i])
         snowflakes[i].hideturtle()
         snowflakes[i].speed(0)
         snowflakes[i].shape('./Snowflake.gif')
@@ -74,9 +77,9 @@ def Update_Position():
     global current_x, current_y
     for i in range(FLAKE_AMOUNT):
         snowflakes[i].speed(0)
-        fall_speed = random.randint(1,10)
-        wind_speed = random.randint(-10,10)
-        current_x[i] += wind_speed
+        fall_speed = random.randint(5,10)
+        #wind_speed = random.randint(-10,10)
+        #current_x[i] += wind_speed
         current_y[i] -= fall_speed
         
 def Draw_Snow():
@@ -88,17 +91,38 @@ def Draw_Snow():
         snowflakes[i].clear()
         snowflakes[i].stamp()
 def Update_Complete():
-    #global showsnow
+    
     Update_Position()
-    wn.update()
+    Snow_Reset()
     wn.ontimer(Update_Complete, REFRESH_TIMER)
     wn.ontimer(Draw_Snow, REFRESH_TIMER)
+    #Snow_Check()
+    #wn.update()
+    
     #Draw_Snow()
-#---- leaves of the tree size ----
+def Snow_Reset():
+    global start_x, start_y, current_x, current_y
+    for i in range(FLAKE_AMOUNT):
+        if current_y[i] <= YMIN_END:
+            current_x[i] = random.randint(X_MIN, X_MAX)
+            current_y[i] = random.randint(Y_MIN, Y_MAX)
 
-#---- base of the tree vaule( bottom center of the canvas ) ----
 
-#---- tree colors ----
+'''    
+def Snow_Check():
+    global current_y, current_x, snowflakes
+    for i in range(FLAKE_AMOUNT):
+        if current_y[i] <= YMIN_END:
+            #snowflakes[i].clear()
+            #snowflakes.clear()
+            snowflakes.remove(snowflakes[i])
+            current_x.remove(current_x[i])
+            current_y.remove(current_y[i])
+
+def Snow_Reset():
+    for flake in snowflakes:
+        snowflakes.pop()
+'''
 
 #---- creates the tree trunk and trasports the turtle to the bottom center of the canvas ----
 def make_tree_trunk():
@@ -220,6 +244,7 @@ keyboard.on_press_key(LEFT_KEY, Left_KeyDown)
 keyboard.on_press_key(RIGHT_KEY, Right_KeyDown)
 
 #----Snow----
+
 Make_Snow()
 showsnow = 'yes'
 #while showsnow == 'yes':
