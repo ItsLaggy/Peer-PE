@@ -13,7 +13,7 @@ wn.tracer(0,0)
 #----Constants----
 #           ___Key Constants___
 FORWARD_KEY, LEFT_KEY, BACKWARD_KEY, RIGHT_KEY = 'w', 'a', 's', 'd'  
-USER_MOVEMENT, USER_TURN = 30, 30 
+USER_MOVEMENT, USER_TURN = 10, 30 
 #           ___Snow Constants___
 FLAKE_AMOUNT, FLAKE_COLOR, REFRESH_TIMER = 300, 'white', 20
 X_MIN, X_MAX, Y_MIN, Y_MAX = -400, 400, -350, 400
@@ -38,25 +38,19 @@ start_y = []
 #----Functions----
 #           ___Key Functions___
 def Turtle_Stamp():
+    pnt.clear()
     pnt.stamp()
-    pnt.stamp()
-    
+#                   ==Turtle Control==
 def Forward_KeyDown(event):
-    pnt.clear()
-    pnt.forward(USER_MOVEMENT)
     wn.ontimer(Turtle_Stamp, 30)
-    
-    
+    pnt.forward(USER_MOVEMENT)
 def Backward_KeyDown(event):
-    pnt.clear()
     pnt.back(USER_MOVEMENT)
     wn.ontimer(Turtle_Stamp, REFRESH_TIMER)
 def Left_KeyDown(event):
-    pnt.clear()
     pnt.left(USER_TURN)
     wn.ontimer(Turtle_Stamp, REFRESH_TIMER)
 def Right_KeyDown(event):
-    pnt.clear()
     pnt.right(USER_TURN)
     wn.ontimer(Turtle_Stamp, REFRESH_TIMER)
 
@@ -92,6 +86,7 @@ def Snow_Reset():
         if current_y[i] <= YMIN_END:
             current_x[i] = random.randint(X_MIN, X_MAX)
             current_y[i] = random.randint(Y_MIN, Y_MAX)
+#                       ===Mother Function for Snow===
 def Complete_Update():
     Update_Position()
     Snow_Reset()
@@ -202,7 +197,7 @@ wn.mainloop()
 
 """ TODO:  
         -Make Tree & star (Aiden)
-        -Snow w/ button (Caden)
+        X-Snow (Caden)
         -Name w/ box 
         -Presents
         -Godly message
