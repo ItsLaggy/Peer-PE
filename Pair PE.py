@@ -3,9 +3,10 @@ import keyboard
 import random
 import time
 
-trtl.speed(0)
-wn = trtl.Screen()
+#----Turtle and Window Settings----
 pnt = trtl.Turtle()
+wn = trtl.Screen()
+wn.title('You Received A Christmas Card!')
 wn.tracer(0,0)
 
 
@@ -18,13 +19,13 @@ FLAKE_AMOUNT, FLAKE_COLOR, REFRESH_TIMER = 300, 'white', 10
 X_MIN, X_MAX, Y_MIN, Y_MAX = -400, 400, -350, 400
 YMIN_END, YMAX_END = -350, -400
 #           ___Tree Constants__
-CENTER_X, CENTER_Y = 0, -300
+CENTER_X, CENTER_Y, TRIANGLE_TURN = 0, -300, 240
 FIRST_TRIANGLE_X, FIRST_TRIANGLE_Y = -110, -272
 SECOND_TRIANGLE_X, SECOND_TRIANGLE_Y = -100, -190
 THIRD_TRIANGLE_X, THIRD_TRIANGLE_Y = -90, -100
 FOURTH_TRIANGLE_X, FOURTH_TRIANGLE_Y = -80, -20
-FIRST_LEAVES, SECOND_LEAVES, THIRD_LEAVES, FOUTH_LEAVES  = 200, 180,160,140
-TREE_COLOR, TRUNK_COLOR = "green","brown"
+FIRST_LEAVES, SECOND_LEAVES, THIRD_LEAVES, FOUTH_LEAVES  = 200, 180, 160, 140
+TREE_COLOR, TRUNK_COLOR, STAR_COLOR = "green","brown", "yellow"
 
 #----Variables----
 snowflakes = []
@@ -35,7 +36,7 @@ start_y = []
 
 
 #----Functions----
-#           ___Key Events___
+#           ___Key Functions___
 def Forward_KeyDown(event):
     pnt.up()
     pnt.forward(USER_MOVEMENT)
@@ -49,24 +50,18 @@ def Right_KeyDown(event):
     pnt.up()
     pnt.right(USER_TURN)
 
-#           ___Snow Events___
+#           ___Snow Functions___
 def Make_Snow():
     for i in range(FLAKE_AMOUNT):
-        
         snowflakes.append(trtl.Turtle())
         current_x.append(random.randint(X_MIN, X_MAX))
         current_y.append(random.randint(Y_MIN, Y_MAX))
         start_x.append(current_x[i])
         start_y.append(current_y[i])
-        snowflakes[i].hideturtle()
         snowflakes[i].speed(0)
+        snowflakes[i].hideturtle()
         snowflakes[i].shape('./Snowflake.gif')
         snowflakes[i].up()
-        #end_y.append(random.randint(YMIN_END, YMAX_END))
-
-    for flake in snowflakes:
-        flake.hideturtle()
-        flake.penup()
 def Update_Position():
     global current_x, current_y
     for i in range(FLAKE_AMOUNT):
@@ -75,51 +70,26 @@ def Update_Position():
         wind_speed = random.randint(0,5)
         current_x[i] += wind_speed
         current_y[i] -= fall_speed
-        
 def Draw_Snow():
     global snowflakes, current_x, current_y
     for i in range(FLAKE_AMOUNT):
-        #snowflakes[i].color(FLAKE_COLOR)
-        
         snowflakes[i].goto(current_x[i],current_y[i])
         snowflakes[i].clear()
         snowflakes[i].stamp()
-def Update_Complete():
-    
-    Update_Position()
-    Snow_Reset()
-    wn.ontimer(Update_Complete, REFRESH_TIMER)
-    wn.ontimer(Draw_Snow, REFRESH_TIMER)
-    #Snow_Check()
-    #wn.update()
-    
-    #Draw_Snow()
 def Snow_Reset():
     global start_x, start_y, current_x, current_y
     for i in range(FLAKE_AMOUNT):
         if current_y[i] <= YMIN_END:
             current_x[i] = random.randint(X_MIN, X_MAX)
             current_y[i] = random.randint(Y_MIN, Y_MAX)
-
-
-'''    
-def Snow_Check():
-    global current_y, current_x, snowflakes
-    for i in range(FLAKE_AMOUNT):
-        if current_y[i] <= YMIN_END:
-            #snowflakes[i].clear()
-            #snowflakes.clear()
-            snowflakes.remove(snowflakes[i])
-            current_x.remove(current_x[i])
-            current_y.remove(current_y[i])
-
-def Snow_Reset():
-    for flake in snowflakes:
-        snowflakes.pop()
-'''
-
+def Complete_Update():
+    Update_Position()
+    Snow_Reset()
+    wn.ontimer(Complete_Update, REFRESH_TIMER)
+    wn.ontimer(Draw_Snow, REFRESH_TIMER)
+#           ___Tree Functions___
 #---- creates the tree trunk and trasports the turtle to the bottom center of the canvas ----
-def make_tree_trunk():
+def Make_Tree_Trunk():
     pnt.speed(0)
     pnt.penup()
     pnt.goto(CENTER_X,CENTER_Y)
@@ -130,79 +100,39 @@ def make_tree_trunk():
     pnt.circle(20,360,4)
     pnt.end_fill()
 #---- triangle function ----
-def make_triangle():
+def Make_Triangle(leaf_length):
     pnt.speed(0)
-    pnt.begin_fill()
-    pnt.fillcolor(TREE_COLOR)
-    pnt.right(45)
-    pnt.forward(200)
-    pnt.right(240)
-    pnt.forward(200)
-    pnt.right(240)
-    pnt.forward(200)
+    pnt.begin_fill(),pnt.fillcolor(TREE_COLOR)
+    pnt.pendown()
+    pnt.left(240)
+    for i in range(3):
+        pnt.right(TRIANGLE_TURN)
+        pnt.forward(leaf_length)
     pnt.end_fill()
 #---- lines up tree leaves
-def postion():
+def Turtle_Position(turtle_x, turtle_y):
     pnt.speed(0)
     pnt.penup()
-    pnt.goto(FIRST_TRIANGLE_X,FIRST_TRIANGLE_Y)
+    pnt.goto(turtle_x,turtle_y)
     pnt.pendown()
+    pnt.setheading(0)
 #---- make tree leaves ----
-def tree_leaves():
-    pnt.speed(0)
-    pnt.begin_fill()
-    pnt.fillcolor(TREE_COLOR)
-    pnt.right(45)
-    pnt.forward(FIRST_LEAVES)
-    pnt.right(240)
-    pnt.forward(FIRST_LEAVES)
-    pnt.right(240)
-    pnt.forward(FIRST_LEAVES)
-    pnt.end_fill()
-    pnt.penup()
-    pnt.left(120)
-    pnt.goto(SECOND_TRIANGLE_X,SECOND_TRIANGLE_Y)
-    pnt.pendown()
-    pnt.begin_fill()
-    pnt.fillcolor(TREE_COLOR)
-    pnt.forward(SECOND_LEAVES)
-    pnt.right(240)
-    pnt.forward(SECOND_LEAVES)
-    pnt.right(240)
-    pnt.forward(SECOND_LEAVES)
-    pnt.end_fill()
-    
-    pnt.penup()
-    pnt.left(120)
-    pnt.goto(THIRD_TRIANGLE_X,THIRD_TRIANGLE_Y)
-    pnt.pendown()
-    pnt.begin_fill()
-    pnt.fillcolor(TREE_COLOR)
-    pnt.forward(THIRD_LEAVES)
-    pnt.right(240)
-    pnt.forward(THIRD_LEAVES)
-    pnt.right(240)
-    pnt.forward(THIRD_LEAVES)
-    pnt.end_fill()
-    pnt.penup()
-    pnt.left(120)
-    pnt.goto(FOURTH_TRIANGLE_X,FOURTH_TRIANGLE_Y)
-    pnt.pendown()
-    pnt.begin_fill()
-    pnt.fillcolor(TREE_COLOR)
-    pnt.forward(FOUTH_LEAVES)
-    pnt.right(240)
-    pnt.forward(FOUTH_LEAVES)
-    pnt.right(240)
-    pnt.forward(FOUTH_LEAVES)
-    pnt.end_fill()
+def Tree_Leaves():
+    Turtle_Position(FIRST_TRIANGLE_X,FIRST_TRIANGLE_Y)
+    Make_Triangle(FIRST_LEAVES)
+    Turtle_Position(SECOND_TRIANGLE_X,SECOND_TRIANGLE_Y)
+    Make_Triangle(SECOND_LEAVES)
+    Turtle_Position(THIRD_TRIANGLE_X,THIRD_TRIANGLE_Y)
+    Make_Triangle(THIRD_LEAVES)
+    Turtle_Position(FOURTH_TRIANGLE_X,FOURTH_TRIANGLE_Y)
+    Make_Triangle(FOUTH_LEAVES)
 #---- makes star for the tree ----
-def make_star():
+def Make_Star():
     pnt.speed(0)
     pnt.penup()
-    pnt.goto(CENTER_X+4 ,95)
+    pnt.goto(CENTER_X+5 ,90)
     pnt.pendown()
-    pnt.color("yellow")
+    pnt.color(STAR_COLOR)
     pnt.begin_fill()
     pnt.right(95)
     pnt.forward(45)
@@ -212,11 +142,11 @@ def make_star():
     pnt.penup()
     pnt.end_fill()
     pnt.hideturtle()
+
 def Tree_Creation():
-    make_tree_trunk()
-    postion()
-    tree_leaves()
-    make_star()
+    Make_Tree_Trunk()
+    Tree_Leaves()
+    Make_Star()
 
     
 
@@ -242,7 +172,7 @@ keyboard.on_press_key(RIGHT_KEY, Right_KeyDown)
 Make_Snow()
 showsnow = 'yes'
 #while showsnow == 'yes':
-Update_Complete()
+Complete_Update()
     #if keyboard.is_pressed('esc') == True:
     #    showsnow = 'no'
 
