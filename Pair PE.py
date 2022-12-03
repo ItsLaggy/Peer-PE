@@ -13,9 +13,9 @@ wn.tracer(0,0)
 #----Constants----
 #           ___Key Constants___
 FORWARD_KEY, LEFT_KEY, BACKWARD_KEY, RIGHT_KEY = 'w', 'a', 's', 'd'  
-USER_MOVEMENT, USER_TURN = 15, 15 
+USER_MOVEMENT, USER_TURN = 30, 30 
 #           ___Snow Constants___
-FLAKE_AMOUNT, FLAKE_COLOR, REFRESH_TIMER = 300, 'white', 10
+FLAKE_AMOUNT, FLAKE_COLOR, REFRESH_TIMER = 300, 'white', 20
 X_MIN, X_MAX, Y_MIN, Y_MAX = -400, 400, -350, 400
 YMIN_END, YMAX_END = -350, -400
 #           ___Tree Constants__
@@ -37,18 +37,28 @@ start_y = []
 
 #----Functions----
 #           ___Key Functions___
+def Turtle_Stamp():
+    pnt.stamp()
+    pnt.stamp()
+    
 def Forward_KeyDown(event):
-    pnt.up()
+    pnt.clear()
     pnt.forward(USER_MOVEMENT)
+    wn.ontimer(Turtle_Stamp, 30)
+    
+    
 def Backward_KeyDown(event):
-    pnt.up()
+    pnt.clear()
     pnt.back(USER_MOVEMENT)
+    wn.ontimer(Turtle_Stamp, REFRESH_TIMER)
 def Left_KeyDown(event):
-    pnt.up()
+    pnt.clear()
     pnt.left(USER_TURN)
+    wn.ontimer(Turtle_Stamp, REFRESH_TIMER)
 def Right_KeyDown(event):
-    pnt.up()
+    pnt.clear()
     pnt.right(USER_TURN)
+    wn.ontimer(Turtle_Stamp, REFRESH_TIMER)
 
 #           ___Snow Functions___
 def Make_Snow():
@@ -59,7 +69,7 @@ def Make_Snow():
         start_x.append(current_x[i])
         start_y.append(current_y[i])
         snowflakes[i].speed(0)
-        snowflakes[i].hideturtle()
+        #snowflakes[i].hideturtle()
         snowflakes[i].shape('./Snowflake.gif')
         snowflakes[i].up()
 def Update_Position():
@@ -141,7 +151,7 @@ def Make_Star():
         pnt.forward(45)
     pnt.penup()
     pnt.end_fill()
-    pnt.hideturtle()
+    #pnt.hideturtle()
 
 def Tree_Creation():
     Make_Tree_Trunk()
@@ -157,25 +167,32 @@ def Tree_Creation():
 #----Background----
 wn.bgpic('./Snow.gif')
 wn.addshape('./Snowflake.gif')
-
+#wn.addshape('./Stand.gif')
+#wn.addshape('./Run1.gif')
+#wn.addshape('./Run2.gif')
 #---- prints the code ----
 Tree_Creation()
 
-#----Keydown Movement----
-keyboard.on_press_key(FORWARD_KEY, Forward_KeyDown)
-keyboard.on_press_key(BACKWARD_KEY, Backward_KeyDown)
-keyboard.on_press_key(LEFT_KEY, Left_KeyDown)
-keyboard.on_press_key(RIGHT_KEY, Right_KeyDown)
 
 #----Snow----
 
 Make_Snow()
 showsnow = 'yes'
-#while showsnow == 'yes':
-Complete_Update()
-    #if keyboard.is_pressed('esc') == True:
-    #    showsnow = 'no'
 
+Complete_Update()
+
+#----Keydown Movement----
+pnt = trtl.Turtle()
+#pnt.shape('./Stand.gif')
+pnt.up()
+pnt.goto(CENTER_X,CENTER_Y)
+
+
+pnt.showturtle()
+keyboard.on_press_key(FORWARD_KEY, Forward_KeyDown)
+keyboard.on_press_key(BACKWARD_KEY, Backward_KeyDown)
+keyboard.on_press_key(LEFT_KEY, Left_KeyDown)
+keyboard.on_press_key(RIGHT_KEY, Right_KeyDown)
 
 
 
@@ -196,4 +213,5 @@ wn.mainloop()
         -Snow (Background)-https://imgs.search.brave.com/d4QyAFytVCoj-nVQSR6nq4k85BTYOFE0AJY4g93Qt7k/rs:fit:1200:1200:1/g:ce/aHR0cHM6Ly8xLmJw/LmJsb2dzcG90LmNv/bS8tR05neFRoV2Jt/cE0vVUk2akt6X0FQ/eEkvQUFBQUFBQUFN/aXMvZjVobV9QOWhH/UWsvczE2MDAvU25v/dytEZXNrdG9wK1dh/bGxwYXBlcnMrYW5k/K0JhY2tncm91bmRz/KzEuanBn
         -snowflake -https://imgs.search.brave.com/5w-dcs-urHRlKohdLLuZWT7EO8qsvW43C1PgKl7sw-g/rs:fit:866:1000:1/g:ce/aHR0cHM6Ly9hc3Nl/dHMub25saW5lbGFi/ZWxzLmNvbS9pbWFn/ZXMvY2xpcC1hcnQv/QXJ2aW42MXI1OC9T/bm93Zmxha2UlMjA3/LTE4OTU4Ni5wbmc
         -https://www.google.com/search?client=opera-gx&q=photo+inside+santas+house&sourceid=opera&ie=UTF-8&oe=UTF-8#imgrc=1sMoIFbkLpKHlM
+        -https://media.istockphoto.com/id/884338460/vector/gingerbread-man-in-different-poses.jpg?s=612x612&w=0&k=20&c=77XrncZ1oUYnaztNGM4l4RB5ekZrkHk2wov0ZGZgUiM=
         """
