@@ -196,13 +196,11 @@ keyboard.on_press_key(RIGHT_KEY, Right_KeyDown)
 wn.mainloop()
 
 """ TODO:  
-        -Make Tree & star (Aiden)
         X-Snow (Caden)
         -Name w/ box 
         -Presents
         -Godly message
         X-Key down events(Caden)-X
-        X-Background (Caden)-X
     
     Credit:
         -Snow (Background)-https://imgs.search.brave.com/d4QyAFytVCoj-nVQSR6nq4k85BTYOFE0AJY4g93Qt7k/rs:fit:1200:1200:1/g:ce/aHR0cHM6Ly8xLmJw/LmJsb2dzcG90LmNv/bS8tR05neFRoV2Jt/cE0vVUk2akt6X0FQ/eEkvQUFBQUFBQUFN/aXMvZjVobV9QOWhH/UWsvczE2MDAvU25v/dytEZXNrdG9wK1dh/bGxwYXBlcnMrYW5k/K0JhY2tncm91bmRz/KzEuanBn
