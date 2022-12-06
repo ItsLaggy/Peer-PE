@@ -9,13 +9,13 @@ wn = trtl.Screen()
 wn.title('You Received A Christmas Card!')
 wn.tracer(0,0)
 
-
 #----Constants----
 #           ___Key Constants___
 FORWARD_KEY, LEFT_KEY, BACKWARD_KEY, RIGHT_KEY = 'w', 'a', 's', 'd'  
-USER_MOVEMENT, USER_TURN = 10, 30 
+USER_MOVEMENT, USER_TURN, USER_COLOR= 30, 30, 'red'
+STAMP_TIMER = 30
 #           ___Snow Constants___
-FLAKE_AMOUNT, FLAKE_COLOR, REFRESH_TIMER = 300, 'white', 20
+FLAKE_AMOUNT,  REFRESH_TIMER = 300, 20
 X_MIN, X_MAX, Y_MIN, Y_MAX = -400, 400, -350, 400
 YMIN_END, YMAX_END = -350, -400
 #           ___Tree Constants__
@@ -27,7 +27,7 @@ FOURTH_TRIANGLE_X, FOURTH_TRIANGLE_Y = -80, -20
 FIRST_LEAVES, SECOND_LEAVES, THIRD_LEAVES, FOUTH_LEAVES  = 200, 180, 160, 140
 TREE_COLOR, TRUNK_COLOR, STAR_COLOR = "green","brown", "yellow"
 
-#----Variables----
+#----Snow Variables----
 snowflakes = []
 current_x = []
 current_y = []
@@ -38,20 +38,26 @@ start_y = []
 #----Functions----
 #           ___Key Functions___
 def Turtle_Stamp():
-    pnt.clear()
+    #pnt.stamp()
     pnt.stamp()
-#                   ==Turtle Control==
+    
 def Forward_KeyDown(event):
-    wn.ontimer(Turtle_Stamp, 30)
     pnt.forward(USER_MOVEMENT)
+    pnt.clear()
+    wn.ontimer(Turtle_Stamp, STAMP_TIMER)
+    
+    
 def Backward_KeyDown(event):
     pnt.back(USER_MOVEMENT)
+    pnt.clear()
     wn.ontimer(Turtle_Stamp, REFRESH_TIMER)
 def Left_KeyDown(event):
     pnt.left(USER_TURN)
+    pnt.clear()
     wn.ontimer(Turtle_Stamp, REFRESH_TIMER)
 def Right_KeyDown(event):
     pnt.right(USER_TURN)
+    pnt.clear()
     wn.ontimer(Turtle_Stamp, REFRESH_TIMER)
 
 #           ___Snow Functions___
@@ -63,7 +69,6 @@ def Make_Snow():
         start_x.append(current_x[i])
         start_y.append(current_y[i])
         snowflakes[i].speed(0)
-        #snowflakes[i].hideturtle()
         snowflakes[i].shape('./Snowflake.gif')
         snowflakes[i].up()
 def Update_Position():
@@ -86,12 +91,12 @@ def Snow_Reset():
         if current_y[i] <= YMIN_END:
             current_x[i] = random.randint(X_MIN, X_MAX)
             current_y[i] = random.randint(Y_MIN, Y_MAX)
-#                       ===Mother Function for Snow===
 def Complete_Update():
     Update_Position()
     Snow_Reset()
     wn.ontimer(Complete_Update, REFRESH_TIMER)
     wn.ontimer(Draw_Snow, REFRESH_TIMER)
+
 #           ___Tree Functions___
 #---- creates the tree trunk and trasports the turtle to the bottom center of the canvas ----
 def Make_Tree_Trunk():
@@ -147,7 +152,7 @@ def Make_Star():
     pnt.penup()
     pnt.end_fill()
     #pnt.hideturtle()
-
+#                       ===Tree Mother Function===
 def Tree_Creation():
     Make_Tree_Trunk()
     Tree_Leaves()
@@ -170,10 +175,7 @@ Tree_Creation()
 
 
 #----Snow----
-
 Make_Snow()
-showsnow = 'yes'
-
 Complete_Update()
 
 #----Keydown Movement----
@@ -182,7 +184,7 @@ pnt = trtl.Turtle()
 pnt.up()
 pnt.goto(0,0)
 pnt.shapesize(3)
-pnt.color('red')
+pnt.color(USER_COLOR)
 pnt.showturtle()
 keyboard.on_press_key(FORWARD_KEY, Forward_KeyDown)
 keyboard.on_press_key(BACKWARD_KEY, Backward_KeyDown)
@@ -196,11 +198,13 @@ keyboard.on_press_key(RIGHT_KEY, Right_KeyDown)
 wn.mainloop()
 
 """ TODO:  
-        X-Snow (Caden)
+        -Make Tree & star (Aiden)
+        X-Snow (Caden)X
         -Name w/ box 
         -Presents
         -Godly message
         X-Key down events(Caden)-X
+        X-Background (Caden)-X
     
     Credit:
         -Snow (Background)-https://imgs.search.brave.com/d4QyAFytVCoj-nVQSR6nq4k85BTYOFE0AJY4g93Qt7k/rs:fit:1200:1200:1/g:ce/aHR0cHM6Ly8xLmJw/LmJsb2dzcG90LmNv/bS8tR05neFRoV2Jt/cE0vVUk2akt6X0FQ/eEkvQUFBQUFBQUFN/aXMvZjVobV9QOWhH/UWsvczE2MDAvU25v/dytEZXNrdG9wK1dh/bGxwYXBlcnMrYW5k/K0JhY2tncm91bmRz/KzEuanBn
