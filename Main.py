@@ -13,9 +13,7 @@ wn.tracer(0,0)
 #----Background----
 wn.bgpic('./Snow.gif')
 wn.addshape('./Snowflake.gif')
-""" wn.addshape('./Stand.gif')
-wn.addshape('./Run1.gif')
-wn.addshape('./Run2.gif') """
+
 
 #----Constants----
 #           ___Key Constants___
@@ -96,8 +94,7 @@ def Right_KeyDown(event):
     pnt.right(USER_TURN)
     pnt.clear()
     wn.ontimer(Turtle_Stamp, REFRESH_TIMER)
-
-#Night
+#            ___Collision___
 def Star_Collision():
     global night
     user_x, user_y = pnt.xcor(), pnt.ycor()
@@ -228,9 +225,7 @@ def Make_Orna():
     pnt.penup()
 #----On click Orna----
 def Click_Orna(filler1,filler2):
-    print('CLEARED')
-    #wn.clear()
-    #Tree_Creation()
+    print('New Lights')
     save_x, save_y, save_head = pnt.xcor(), pnt.ycor(), pnt.heading()
     pnt.seth(285)
     pnt.pencolor(STAR_COLOR)
@@ -336,7 +331,6 @@ def Make_Star():
         pnt.forward(45)
     pnt.penup()
     pnt.end_fill()
-    #pnt.hideturtle()
 #                       ===Tree Mother Function===
 def Tree_Creation():
     Make_Tree_Trunk()
