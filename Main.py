@@ -1,7 +1,6 @@
 import turtle as trtl
 import keyboard
 import random
-import time
 
 #----Turtle and Window Settings----
 pnt = trtl.Turtle()
