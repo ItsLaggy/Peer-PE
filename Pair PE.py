@@ -25,9 +25,12 @@ SECOND_TRIANGLE_X, SECOND_TRIANGLE_Y = -100, -190
 THIRD_TRIANGLE_X, THIRD_TRIANGLE_Y = -90, -100
 FOURTH_TRIANGLE_X, FOURTH_TRIANGLE_Y = -80, -20
 FIRST_LEAVES, SECOND_LEAVES, THIRD_LEAVES, FOUTH_LEAVES  = 200, 180, 160, 140
+STAR_LENGTH, STAR_X, STAR_Y = 45, CENTER_X+5, 90
 TREE_COLOR, TRUNK_COLOR, STAR_COLOR = "green","brown", "yellow"
+#           ___Night Constants___
+COLLISION_X1, COLLISION_X2, COLLISION_Y1, COLLISION_Y2 =  CENTER_X-20, CENTER_X+20, CENTER_Y-20, CENTER_Y+20
 
-#----Snow Variables----
+#----Snow Lists----
 snowflakes = []
 current_x = []
 current_y = []
@@ -45,8 +48,6 @@ def Forward_KeyDown(event):
     pnt.forward(USER_MOVEMENT)
     pnt.clear()
     wn.ontimer(Turtle_Stamp, STAMP_TIMER)
-    
-    
 def Backward_KeyDown(event):
     pnt.back(USER_MOVEMENT)
     pnt.clear()
@@ -60,9 +61,14 @@ def Right_KeyDown(event):
     pnt.clear()
     wn.ontimer(Turtle_Stamp, REFRESH_TIMER)
 
+def Star_Collision():
+    user_x, user_y = pnt.xcor(), pnt.ycor()
+    if (user_x <= X_MAX and user_x >= X_MIN) and (user_y <= Y_MAX and user_y >= Y_MIN):
+        x=1
+
 #           ___Snow Functions___
 def Make_Snow():
-    for i in range(FLAKE_AMOUNT):
+    for i in range(FLAKE_AMOUNT):   
         snowflakes.append(trtl.Turtle())
         current_x.append(random.randint(X_MIN, X_MAX))
         current_y.append(random.randint(Y_MIN, Y_MAX))
@@ -140,18 +146,18 @@ def Tree_Leaves():
 def Make_Star():
     pnt.speed(0)
     pnt.penup()
-    pnt.goto(CENTER_X+5 ,90)
+    pnt.goto(STAR_X ,STAR_Y)
     pnt.pendown()
     pnt.color(STAR_COLOR)
     pnt.begin_fill()
     pnt.right(95)
-    pnt.forward(45)
+    pnt.forward(STAR_LENGTH)
     for i in range(4):
         pnt.right(144)
-        pnt.forward(45)
+        pnt.forward(STAR_LENGTH)
     pnt.penup()
     pnt.end_fill()
-    #pnt.hideturtle()
+
 #                       ===Tree Mother Function===
 def Tree_Creation():
     Make_Tree_Trunk()
