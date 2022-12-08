@@ -18,7 +18,7 @@ wn.addshape('./Snowflake.gif')
 #----Constants----
 #           ___Key Constants___
 FORWARD_KEY, LEFT_KEY, BACKWARD_KEY, RIGHT_KEY = 'w', 'a', 's', 'd'  
-USER_MOVEMENT, USER_TURN, USER_COLOR= 30, 30, 'red'
+USER_MOVEMENT, USER_TURN, USER_COLOR= 10, 30, 'red'
 STAMP_TIMER = 30
 #           ___Snow Constants___
 FLAKE_AMOUNT,  REFRESH_TIMER = 300, 20
