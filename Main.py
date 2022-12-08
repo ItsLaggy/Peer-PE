@@ -351,6 +351,7 @@ Make_Snow()
 Complete_Update()
 
 #----Message----
+trtl.textinput('Controls', 'Use WASD to move \nClick to change the lights \nGo to the star for a suprise \nEnter anything to start')
 user_name = trtl.textinput('What is your name?', 'Please enter your name')
 Make_Message(user_name)
 
