@@ -62,14 +62,17 @@ RIGHT_PRESENT_CENTER_HORZ = 60, -290
 LEFT_PRESENT_CENTER_HORZ = -95, -290
 WRAPING_PAPER_LENGTH = 20
 
-#----Snow Lists----
+'''_______________________________________________________________________________________Caden_______________________________________________________________________________________'''
+
+#----Misc Lists & Vars----
 snowflakes = []
 current_x = []
 current_y = []
 start_x = []
 start_y = []
-
 night = False
+
+
 
 #----Functions----
 #           ___Key Functions___
@@ -107,8 +110,6 @@ def Star_Collision():
         else:
             wn.bgpic('./SnowNight.gif')
             night = True
-        
-
 #           ___Snow Functions___
 def Make_Snow():
     for i in range(FLAKE_AMOUNT):
@@ -154,8 +155,8 @@ def Make_Message(name):
         pnt.goto(MESSAGE_X,MESSAGE_Y)
         pnt.color(MESSAGE_COLOR)
         pnt.write(f'Have a Merry Christmas {name}, Jesus loves you!', align=('center'), font=(FONT,FONT_SIZE,'bold'))
-    
 
+'''_______________________________________________________________________________________Aiden_______________________________________________________________________________________'''
 #           ___Tree Functions___
 #---- creates the tree trunk and trasports the turtle to the bottom center of the canvas ----
 #---- ordament function ----
@@ -380,17 +381,15 @@ keyboard.on_press_key(RIGHT_KEY, Right_KeyDown)
 wn.mainloop()
 
 """ TODO:  
-        -Make Tree & star (Aiden)
+        X-Make Tree & star (Aiden)X
         X-Snow (Caden)X
-        -Name w/ box 
-        -Presents
-        -Godly message
+        X-Name w/ box X
+        X-PresentsX
+        X-Godly messageX
         X-Key down events(Caden)-X
         X-Background (Caden)-X
     
     Credit:
         -Snow (Background)-https://imgs.search.brave.com/d4QyAFytVCoj-nVQSR6nq4k85BTYOFE0AJY4g93Qt7k/rs:fit:1200:1200:1/g:ce/aHR0cHM6Ly8xLmJw/LmJsb2dzcG90LmNv/bS8tR05neFRoV2Jt/cE0vVUk2akt6X0FQ/eEkvQUFBQUFBQUFN/aXMvZjVobV9QOWhH/UWsvczE2MDAvU25v/dytEZXNrdG9wK1dh/bGxwYXBlcnMrYW5k/K0JhY2tncm91bmRz/KzEuanBn
         -snowflake -https://imgs.search.brave.com/5w-dcs-urHRlKohdLLuZWT7EO8qsvW43C1PgKl7sw-g/rs:fit:866:1000:1/g:ce/aHR0cHM6Ly9hc3Nl/dHMub25saW5lbGFi/ZWxzLmNvbS9pbWFn/ZXMvY2xpcC1hcnQv/QXJ2aW42MXI1OC9T/bm93Zmxha2UlMjA3/LTE4OTU4Ni5wbmc
-        -https://www.google.com/search?client=opera-gx&q=photo+inside+santas+house&sourceid=opera&ie=UTF-8&oe=UTF-8#imgrc=1sMoIFbkLpKHlM
-        -https://media.istockphoto.com/id/884338460/vector/gingerbread-man-in-different-poses.jpg?s=612x612&w=0&k=20&c=77XrncZ1oUYnaztNGM4l4RB5ekZrkHk2wov0ZGZgUiM=
         """
