@@ -43,7 +43,7 @@ TREE_COLOR, TRUNK_COLOR, STAR_COLOR, OUT_LINE_PRESENT = "green","brown", "yellow
 COLLISION_X1, COLLISION_X2, COLLISION_Y1, COLLISION_Y2 =  CENTER_X-15, CENTER_X+15, 100, 130
 #           ___Orna & Presents Constants___
 ORNA_RADIUS = 10
-ORNA_COLORS=['blue','red','pink','purple','orange']
+ORNA_COLORS=['blue','red','pink','purple','orange', 'dark red', 'dark green', 'fuchsia', 'dark blue']
 PRESENT_COLORS=['green','pink','purple','orange']
 FIRST_DECORATION_X, FIRST_DECORATION_Y = 0, -210
 SECOND_DECORATION_X, SECOND_DECORATION_Y = 0, 35
@@ -159,7 +159,8 @@ def Make_Message(name):
 #           ___Tree Functions___
 #---- creates the tree trunk and trasports the turtle to the bottom center of the canvas ----
 #---- ordament function ----
-def MAKE_ORNA():
+def Make_Orna():
+    pnt.speed(0)
     pnt.penup()
     pnt.goto(FIRST_DECORATION_X, FIRST_DECORATION_Y)
     pnt.pendown()
@@ -223,8 +224,19 @@ def MAKE_ORNA():
     pnt.begin_fill()
     pnt.circle(ORNA_RADIUS)
     pnt.end_fill()
+    pnt.penup()
+#----On click Orna----
+def Click_Orna(filler1,filler2):
+    print('CLEARED')
+    #wn.clear()
+    #Tree_Creation()
+    save_x, save_y, save_head = pnt.xcor(), pnt.ycor(), pnt.heading()
+    pnt.seth(285)
+    pnt.pencolor(STAR_COLOR)
+    Make_Orna()
+    pnt.goto(save_x, save_y), pnt.seth(save_head)
 #---- present function ----
-def MAKE_GIFTS():
+def Make_Gifts():
     pnt.penup()
     pnt.goto(LEFT_PRESENT)
     pnt.pendown()
@@ -329,46 +341,37 @@ def Tree_Creation():
     Make_Tree_Trunk()
     Tree_Leaves()
     Make_Star()
-    MAKE_ORNA()
-    MAKE_GIFTS()
+    Make_Orna()
+    Make_Gifts()
 
 
-
-    
-
-
-
-    
-
+#=====MAIN CODE======================================================================================================#
 #----Background----
 wn.bgpic('./Snow.gif')
 wn.addshape('./Snowflake.gif')
-""" wn.addshape('./Stand.gif')
-wn.addshape('./Run1.gif')
-wn.addshape('./Run2.gif') """
-#---- prints the code ----
+
+#----Generation----
 Tree_Creation()
-
-
-#----Snow----
 Make_Snow()
 Complete_Update()
 
-#-----------
+#----Message----
 user_name = trtl.textinput('What is your name?', 'Please enter your name')
 Make_Message(user_name)
+
 #----Keydown Movement----
 pnt = trtl.Turtle()
-#pnt.shape('./Stand.gif')
 pnt.up()
 pnt.goto(0,0)
 pnt.shapesize(3)
 pnt.color(USER_COLOR)
 pnt.showturtle()
+wn.onclick(Click_Orna)
 keyboard.on_press_key(FORWARD_KEY, Forward_KeyDown)
 keyboard.on_press_key(BACKWARD_KEY, Backward_KeyDown)
 keyboard.on_press_key(LEFT_KEY, Left_KeyDown)
 keyboard.on_press_key(RIGHT_KEY, Right_KeyDown)
+
 
 
 
