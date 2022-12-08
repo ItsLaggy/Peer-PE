@@ -1,6 +1,7 @@
 import turtle as trtl
 import keyboard
 import random
+#:(:)
 
 #----Turtle and Window Settings----
 pnt = trtl.Turtle()
@@ -366,10 +367,6 @@ keyboard.on_press_key(BACKWARD_KEY, Backward_KeyDown)
 keyboard.on_press_key(LEFT_KEY, Left_KeyDown)
 keyboard.on_press_key(RIGHT_KEY, Right_KeyDown)
 
-
-
-
-#----Window Control----
 
 wn.mainloop()
 
