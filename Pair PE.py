@@ -26,6 +26,7 @@ STAMP_TIMER = 30
 FLAKE_AMOUNT,  REFRESH_TIMER = 300, 20
 X_MIN, X_MAX, Y_MIN, Y_MAX = -400, 400, -350, 400
 YMIN_END, YMAX_END = -350, -400
+FALL_1, FALL_2, WIND_1, WIND_2 = 5, 10, 0, 5
 #           ___Message Constants___
 MESSAGE_X, MESSAGE_Y = 0, 250 
 MESSAGE_COLOR, FONT, FONT_SIZE = 'dark red', 'Brush Script MT', 20
@@ -37,9 +38,29 @@ THIRD_TRIANGLE_X, THIRD_TRIANGLE_Y = -90, -100
 FOURTH_TRIANGLE_X, FOURTH_TRIANGLE_Y = -80, -20
 FIRST_LEAVES, SECOND_LEAVES, THIRD_LEAVES, FOUTH_LEAVES  = 200, 180, 160, 140
 STAR_LENGTH, STAR_X, STAR_Y = 45, CENTER_X+5, 90
-TREE_COLOR, TRUNK_COLOR, STAR_COLOR = "green","brown", "yellow"
+TREE_COLOR, TRUNK_COLOR, STAR_COLOR, OUT_LINE_PRESENT = "green","brown", "yellow","blue"
 #           ___Night Constants___
 COLLISION_X1, COLLISION_X2, COLLISION_Y1, COLLISION_Y2 =  CENTER_X-15, CENTER_X+15, 100, 130
+#           ___Orna & Presents Constants___
+ORNA_RADIUS = 10
+ORNA_COLORS=['blue','red','pink','purple','orange']
+PRESENT_COLORS=['green','pink','purple','orange']
+FIRST_DECORATION_X, FIRST_DECORATION_Y = 0, -210
+SECOND_DECORATION_X, SECOND_DECORATION_Y = 0, 35
+THIRD_DECORATION_X, THIRD_DECORATION_Y = -50, 0
+FOURTH_DECORATION_X, FOURTH_DECORATION_Y = -60, -250
+FIFTH_DECORATION_X, FIFTH_DECORATION_Y = -60, -80
+SIXTH_DECORATION_X, SIXTH_DECORATION_Y = 0, -60
+SEVENTH_DECORATION_X, SEVENTH_DECORATION_Y = -55, -155
+EIGHTH__DECORATION_X, EIGHTH_DECORATION_Y = 0, -140
+LEFT_PRESENT = -75,-300
+RIGHT_PRESENT = 80, -300
+PRESENT_RADIUS = 15
+RIGHT_PRESENT_CENTER = 70, -300
+LEFT_PRESENT_CENTER = -85, -300
+RIGHT_PRESENT_CENTER_HORZ = 60, -290
+LEFT_PRESENT_CENTER_HORZ = -95, -290
+WRAPING_PAPER_LENGTH = 20
 
 #----Snow Lists----
 snowflakes = []
@@ -103,8 +124,8 @@ def Update_Position():
     global current_x, current_y
     for i in range(FLAKE_AMOUNT):
         snowflakes[i].speed(0)
-        fall_speed = random.randint(5,10)
-        wind_speed = random.randint(0,5)
+        fall_speed = random.randint(FALL_1, FALL_2)
+        wind_speed = random.randint(WIND_1, WIND_2)
         current_x[i] += wind_speed
         current_y[i] -= fall_speed
 def Draw_Snow():
@@ -137,6 +158,119 @@ def Make_Message(name):
 
 #           ___Tree Functions___
 #---- creates the tree trunk and trasports the turtle to the bottom center of the canvas ----
+#---- ordament function ----
+def MAKE_ORNA():
+    pnt.penup()
+    pnt.goto(FIRST_DECORATION_X, FIRST_DECORATION_Y)
+    pnt.pendown()
+    pnt.fillcolor(random.choice(ORNA_COLORS))
+    pnt.begin_fill()
+    pnt.circle(ORNA_RADIUS)
+    pnt.end_fill()
+
+    pnt.penup()
+    pnt.goto(SECOND_DECORATION_X, SECOND_DECORATION_Y)
+    pnt.pendown()
+    pnt.fillcolor(random.choice(ORNA_COLORS))
+    pnt.begin_fill()
+    pnt.circle(ORNA_RADIUS)
+    pnt.end_fill()
+
+    pnt.penup()
+    pnt.goto(THIRD_DECORATION_X, THIRD_DECORATION_Y)
+    pnt.pendown()
+    pnt.fillcolor(random.choice(ORNA_COLORS))
+    pnt.begin_fill()
+    pnt.circle(ORNA_RADIUS)
+    pnt.end_fill()
+
+    pnt.penup()
+    pnt.goto(FOURTH_DECORATION_X, FOURTH_DECORATION_Y)
+    pnt.pendown()
+    pnt.fillcolor(random.choice(ORNA_COLORS))
+    pnt.begin_fill()
+    pnt.circle(ORNA_RADIUS)
+    pnt.end_fill()
+    
+    pnt.penup()
+    pnt.goto(FIFTH_DECORATION_X, FIFTH_DECORATION_Y)
+    pnt.pendown()
+    pnt.fillcolor(random.choice(ORNA_COLORS))
+    pnt.begin_fill()
+    pnt.circle(ORNA_RADIUS)
+    pnt.end_fill()
+
+    pnt.penup()
+    pnt.goto(SIXTH_DECORATION_X, SIXTH_DECORATION_Y )
+    pnt.pendown()
+    pnt.fillcolor(random.choice(ORNA_COLORS))
+    pnt.begin_fill()
+    pnt.circle(ORNA_RADIUS)
+    pnt.end_fill()
+    
+    pnt.penup()
+    pnt.goto(SEVENTH_DECORATION_X, SEVENTH_DECORATION_Y )
+    pnt.pendown()
+    pnt.fillcolor(random.choice(ORNA_COLORS))
+    pnt.begin_fill()
+    pnt.circle(ORNA_RADIUS)
+    pnt.end_fill()
+
+    pnt.penup()
+    pnt.goto(EIGHTH__DECORATION_X, EIGHTH_DECORATION_Y )
+    pnt.pendown()
+    pnt.fillcolor(random.choice(ORNA_COLORS))
+    pnt.begin_fill()
+    pnt.circle(ORNA_RADIUS)
+    pnt.end_fill()
+#---- present function ----
+def MAKE_GIFTS():
+    pnt.penup()
+    pnt.goto(LEFT_PRESENT)
+    pnt.pendown()
+    pnt.left(115)
+    pnt.color(OUT_LINE_PRESENT)
+    pnt.fillcolor(random.choice(PRESENT_COLORS))
+    pnt.begin_fill()
+    pnt.circle(PRESENT_RADIUS,360,4)
+    pnt.end_fill()
+    
+    pnt.penup()
+    pnt.goto(RIGHT_PRESENT)
+    pnt.pendown()
+    pnt.fillcolor(random.choice(PRESENT_COLORS))
+    pnt.begin_fill()
+    pnt.circle(PRESENT_RADIUS,360,4)
+    pnt.end_fill()
+
+    pnt.penup()
+    pnt.goto(RIGHT_PRESENT_CENTER)
+    pnt.pendown()
+    pnt.pensize(2)
+    pnt.left(45)
+    pnt.forward(WRAPING_PAPER_LENGTH)
+
+    pnt.penup()
+    pnt.goto(LEFT_PRESENT_CENTER)
+    pnt.pendown()
+    pnt.pensize(2)
+    pnt.forward(WRAPING_PAPER_LENGTH)
+
+    pnt.penup()
+    pnt.goto(RIGHT_PRESENT_CENTER_HORZ)
+    pnt.right(135)
+    pnt.pendown()
+    pnt.pensize(2)
+    pnt.left(45)
+    pnt.forward(WRAPING_PAPER_LENGTH)
+
+    pnt.penup()
+    pnt.goto(LEFT_PRESENT_CENTER_HORZ)
+    pnt.pendown()
+    pnt.pensize(2)
+    pnt.forward(WRAPING_PAPER_LENGTH)
+    pnt.penup()
+
 def Make_Tree_Trunk():
     pnt.speed(0)
     pnt.penup()
@@ -195,6 +329,10 @@ def Tree_Creation():
     Make_Tree_Trunk()
     Tree_Leaves()
     Make_Star()
+    MAKE_ORNA()
+    MAKE_GIFTS()
+
+
 
     
 
