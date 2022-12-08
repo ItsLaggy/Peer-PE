@@ -9,6 +9,14 @@ wn = trtl.Screen()
 wn.title('You Received A Christmas Card!')
 wn.tracer(0,0)
 
+
+#----Background----
+wn.bgpic('./Snow.gif')
+wn.addshape('./Snowflake.gif')
+""" wn.addshape('./Stand.gif')
+wn.addshape('./Run1.gif')
+wn.addshape('./Run2.gif') """
+
 #----Constants----
 #           ___Key Constants___
 FORWARD_KEY, LEFT_KEY, BACKWARD_KEY, RIGHT_KEY = 'w', 'a', 's', 'd'  
@@ -18,6 +26,9 @@ STAMP_TIMER = 30
 FLAKE_AMOUNT,  REFRESH_TIMER = 300, 20
 X_MIN, X_MAX, Y_MIN, Y_MAX = -400, 400, -350, 400
 YMIN_END, YMAX_END = -350, -400
+#           ___Message Constants___
+MESSAGE_X, MESSAGE_Y = 0, 250 
+MESSAGE_COLOR, FONT, FONT_SIZE = 'dark red', 'Brush Script MT', 20
 #           ___Tree Constants__
 CENTER_X, CENTER_Y, TRIANGLE_TURN = 0, -300, 240
 FIRST_TRIANGLE_X, FIRST_TRIANGLE_Y = -110, -272
@@ -28,7 +39,7 @@ FIRST_LEAVES, SECOND_LEAVES, THIRD_LEAVES, FOUTH_LEAVES  = 200, 180, 160, 140
 STAR_LENGTH, STAR_X, STAR_Y = 45, CENTER_X+5, 90
 TREE_COLOR, TRUNK_COLOR, STAR_COLOR = "green","brown", "yellow"
 #           ___Night Constants___
-COLLISION_X1, COLLISION_X2, COLLISION_Y1, COLLISION_Y2 =  CENTER_X-20, CENTER_X+20, CENTER_Y-20, CENTER_Y+20
+COLLISION_X1, COLLISION_X2, COLLISION_Y1, COLLISION_Y2 =  CENTER_X-15, CENTER_X+15, 100, 130
 
 #----Snow Lists----
 snowflakes = []
@@ -37,17 +48,18 @@ current_y = []
 start_x = []
 start_y = []
 
+night = False
 
 #----Functions----
 #           ___Key Functions___
-def Turtle_Stamp():
-    #pnt.stamp()
+def Turtle_Stamp(): 
     pnt.stamp()
     
 def Forward_KeyDown(event):
     pnt.forward(USER_MOVEMENT)
     pnt.clear()
     wn.ontimer(Turtle_Stamp, STAMP_TIMER)
+    Star_Collision()
 def Backward_KeyDown(event):
     pnt.back(USER_MOVEMENT)
     pnt.clear()
@@ -61,14 +73,24 @@ def Right_KeyDown(event):
     pnt.clear()
     wn.ontimer(Turtle_Stamp, REFRESH_TIMER)
 
+#Night
 def Star_Collision():
+    global night
     user_x, user_y = pnt.xcor(), pnt.ycor()
-    if (user_x <= X_MAX and user_x >= X_MIN) and (user_y <= Y_MAX and user_y >= Y_MIN):
-        x=1
+    print(f'{user_x},{user_y}')
+    if (user_x <= COLLISION_X2 and user_x >= COLLISION_X1) and (user_y <= COLLISION_Y2 and user_y >= COLLISION_Y1):
+        pnt.backward(USER_MOVEMENT)
+        if night:
+            wn.bgpic('./Snow.gif')
+            night = False
+        else:
+            wn.bgpic('./SnowNight.gif')
+            night = True
+        
 
 #           ___Snow Functions___
 def Make_Snow():
-    for i in range(FLAKE_AMOUNT):   
+    for i in range(FLAKE_AMOUNT):
         snowflakes.append(trtl.Turtle())
         current_x.append(random.randint(X_MIN, X_MAX))
         current_y.append(random.randint(Y_MIN, Y_MAX))
@@ -103,6 +125,16 @@ def Complete_Update():
     wn.ontimer(Complete_Update, REFRESH_TIMER)
     wn.ontimer(Draw_Snow, REFRESH_TIMER)
 
+#           ___Card Message___
+def Make_Message(name):
+    if name.lower() == 'scrooge':
+        exit()
+    else:
+        pnt.goto(MESSAGE_X,MESSAGE_Y)
+        pnt.color(MESSAGE_COLOR)
+        pnt.write(f'Have a Merry Christmas {name}, Jesus loves you!', align=('center'), font=(FONT,FONT_SIZE,'bold'))
+    
+
 #           ___Tree Functions___
 #---- creates the tree trunk and trasports the turtle to the bottom center of the canvas ----
 def Make_Tree_Trunk():
@@ -129,35 +161,35 @@ def Make_Triangle(leaf_length):
 def Turtle_Position(turtle_x, turtle_y):
     pnt.speed(0)
     pnt.penup()
-    pnt.goto(turtle_x,turtle_y)
+    pnt.goto(turtle_x, turtle_y)
     pnt.pendown()
     pnt.setheading(0)
 #---- make tree leaves ----
 def Tree_Leaves():
-    Turtle_Position(FIRST_TRIANGLE_X,FIRST_TRIANGLE_Y)
+    Turtle_Position(FIRST_TRIANGLE_X, FIRST_TRIANGLE_Y)
     Make_Triangle(FIRST_LEAVES)
-    Turtle_Position(SECOND_TRIANGLE_X,SECOND_TRIANGLE_Y)
+    Turtle_Position(SECOND_TRIANGLE_X, SECOND_TRIANGLE_Y)
     Make_Triangle(SECOND_LEAVES)
-    Turtle_Position(THIRD_TRIANGLE_X,THIRD_TRIANGLE_Y)
+    Turtle_Position(THIRD_TRIANGLE_X, THIRD_TRIANGLE_Y)
     Make_Triangle(THIRD_LEAVES)
-    Turtle_Position(FOURTH_TRIANGLE_X,FOURTH_TRIANGLE_Y)
+    Turtle_Position(FOURTH_TRIANGLE_X, FOURTH_TRIANGLE_Y)
     Make_Triangle(FOUTH_LEAVES)
 #---- makes star for the tree ----
 def Make_Star():
     pnt.speed(0)
     pnt.penup()
-    pnt.goto(STAR_X ,STAR_Y)
+    pnt.goto(CENTER_X+5 ,90)
     pnt.pendown()
     pnt.color(STAR_COLOR)
     pnt.begin_fill()
     pnt.right(95)
-    pnt.forward(STAR_LENGTH)
+    pnt.forward(45)
     for i in range(4):
         pnt.right(144)
-        pnt.forward(STAR_LENGTH)
+        pnt.forward(45)
     pnt.penup()
     pnt.end_fill()
-
+    #pnt.hideturtle()
 #                       ===Tree Mother Function===
 def Tree_Creation():
     Make_Tree_Trunk()
@@ -184,6 +216,9 @@ Tree_Creation()
 Make_Snow()
 Complete_Update()
 
+#-----------
+user_name = trtl.textinput('What is your name?', 'Please enter your name')
+Make_Message(user_name)
 #----Keydown Movement----
 pnt = trtl.Turtle()
 #pnt.shape('./Stand.gif')
